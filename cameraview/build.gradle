@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.jfrog.bintray'
 
 // Required by bintray
 version = '2.6.2'
@@ -54,7 +54,7 @@ dependencies {
 //endregion
 
 //region bintray
-
+/*
 // install is a task defined by the Gradle Maven plugin, which is used to
 // publish a maven repo to a local repository. (we actually use the android version of the plugin,
 // com.github.dcendents.android-maven, to support AARs)
@@ -108,7 +108,9 @@ install {
 
 def bintrayUser
 def bintrayKey
+*/
 def isCI = System.getenv("TRAVIS")
+/*
 if (isCI) {
     bintrayUser = System.getenv("BINTRAY_USER")
     bintrayKey = System.getenv("BINTRAY_KEY")
@@ -139,7 +141,7 @@ bintray {
         }
     }
 }
-
+*/
 //endregion
 
 //region javadoc and sources
