@@ -167,7 +167,12 @@ public class Camera1Engine extends CameraBaseEngine implements
         mCameraOptions = new Camera1Options(params, mCameraId,
                 getAngles().flip(Reference.SENSOR, Reference.VIEW));
         applyAllParameters(params);
-        mCamera.setParameters(params);
+        try{
+            mCamera.setParameters(params);
+        }catch (Exception e){
+            LOG.e("setParam:","set params failed "+params.flatten(),e);
+        }
+
         mCamera.setDisplayOrientation(getAngles().offset(Reference.SENSOR, Reference.VIEW,
                 Axis.ABSOLUTE)); // <- not allowed during preview
         LOG.i("onStartEngine:", "Ended");
@@ -611,7 +616,14 @@ public class Camera1Engine extends CameraBaseEngine implements
         if (mCameraOptions.isZoomSupported()) {
             float max = params.getMaxZoom();
             params.setZoom((int) (mZoomValue * max));
-            mCamera.setParameters(params);
+            try{
+                mCamera.setParameters(params);
+            }
+            catch (Exception e){
+                LOG.e("zoom:","set zoom to "+params.getZoom()+" failed ",e);
+                mZoomValue=oldZoom;
+                return false;
+            }
             return true;
         }
         mZoomValue = oldZoom;
